@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browsing {{ class_name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h1>Browsing: {{ class_name }}</h1>
+    <a href="/" class="btn btn-secondary mb-3">Back to Collections</a>
+
+    <!-- Filter & Limit Form -->
+    <form method="get" class="mb-3">
+        <div class="mb-3">
+            <label for="limit" class="form-label">Limit:</label>
+            <input type="number" id="limit" name="limit" value="{{ limit }}" min="1" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="filters" class="form-label">Filters:</label>
+            <input type="text" id="filters" name="filters" value="{{ filters }}" class="form-control" placeholder="e.g. property:value">
+            <small class="form-text text-muted">Simple format: property:value (e.g. name:John)</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+
+    <!-- Display Objects in a Table -->
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                {% for prop in properties %}
+                    <th>{{ prop }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in objects %}
+                <tr>
+                    {% for prop in properties %}
+                        <td>{{ obj.get(prop, 'N/A') }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
